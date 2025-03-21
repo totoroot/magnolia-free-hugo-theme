@@ -7,12 +7,14 @@
       <div class="d-flex flex-column h-100 justify-content-center">
         <h1 class="display-2">{{.Site.Params.office.title}}</h1>
         <p>{{.Site.Params.office.description}}</p>
+        {{range $index, $element := .Site.Params.office.buttons}}
         <a
-          class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm"
-          href="{{.Site.Params.office.buttonLink}}"
+          class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 mb-3 fw-bolder shadow-sm"
+          href="{{ .link }}"
           target="_blank"
-          >{{ .Site.Params.office.buttonText }}</a
+          >{{ .label }}</a
         >
+        {{end}}
       </div>
     </div>
 
