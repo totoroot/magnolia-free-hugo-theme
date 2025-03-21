@@ -25,32 +25,36 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_name"
-                        >{{.Site.Params.contacts.form.firstname}}</label
+                        >{{.Site.Params.contacts.form.labels.firstname}}</label
                       >
                       <input
                         id="form_name"
                         type="text"
                         name="name"
                         class="form-control"
-                        placeholder="{{.Site.Params.contacts.form.firstname}}"
+                        placeholder="{{.Site.Params.contacts.form.labels.firstname}}"
+                        {{ if .Site.Params.contacts.form.required.firstname }}
                         required="required"
-                        data-error="{{.Site.Params.contacts.form.firstname}}"
+                        {{ end }}
+                        data-error="{{.Site.Params.contacts.form.labels.firstname}}"
                       />
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_lastname"
-                        >{{.Site.Params.contacts.form.lastname}}</label
+                        >{{.Site.Params.contacts.form.labels.lastname}}</label
                       >
                       <input
                         id="form_lastname"
                         type="text"
                         name="surname"
                         class="form-control"
-                        placeholder="{{.Site.Params.contacts.form.lastname}}"
+                        placeholder="{{.Site.Params.contacts.form.labels.lastname}}"
+                        {{ if .Site.Params.contacts.form.required.lastname }}
                         required="required"
-                        data-error="{{.Site.Params.contacts.form.lastname}}"
+                        {{ end }}
+                        data-error="{{.Site.Params.contacts.form.labels.lastname}}"
                       />
                     </div>
                   </div>
@@ -59,16 +63,18 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="form_email"
-                        >{{.Site.Params.contacts.form.email}}</label
+                        >{{.Site.Params.contacts.form.labels.email}}</label
                       >
                       <input
                         id="form_email"
                         type="email"
                         name="email"
                         class="form-control"
-                        placeholder="{{.Site.Params.contacts.form.email}}"
+                        placeholder="{{.Site.Params.contacts.form.labels.email}}"
+                        {{ if .Site.Params.contacts.form.required.email }}
                         required="required"
-                        data-error="{{.Site.Params.contacts.form.email}}"
+                        {{ end }}
+                        data-error="{{.Site.Params.contacts.form.labels.email}}"
                       />
                     </div>
                   </div>
@@ -77,16 +83,18 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="form_phone"
-                        >{{.Site.Params.contacts.form.phone}}</label
+                        >{{.Site.Params.contacts.form.labels.phone}}</label
                       >
                       <input
                         id="form_phone"
                         type="tel"
                         name="phone-number"
                         class="form-control"
-                        placeholder="{{.Site.Params.contacts.form.phone}}"
+                        placeholder="{{.Site.Params.contacts.form.labels.phone}}"
+                        {{ if .Site.Params.contacts.form.required.phone }}
                         required="required"
-                        data-error="{{.Site.Params.contacts.form.phone}}"
+                        {{ end }}
+                        data-error="{{.Site.Params.contacts.form.labels.phone}}"
                       />
                     </div>
                   </div>
@@ -95,16 +103,18 @@
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
                       <label for="form_message"
-                        >{{.Site.Params.contacts.form.inquiry}}</label
+                        >{{.Site.Params.contacts.form.labels.inquiry}}</label
                       >
                       <textarea
                         id="form_message"
                         name="inquiry"
                         class="form-control"
-                        placeholder="{{.Site.Params.contacts.form.inquiry}}"
+                        placeholder="{{.Site.Params.contacts.form.labels.inquiry}}"
                         rows="4"
+                        {{ if .Site.Params.contacts.form.required.inquiry }}
                         required="required"
-                        data-error="{{.Site.Params.contacts.form.inquiry}}"
+                        {{ end }}
+                        data-error="{{.Site.Params.contacts.form.labels.inquiry}}"
                       ></textarea>
                     </div>
                   </div>
@@ -112,18 +122,21 @@
                     <input
                       type="checkbox"
                       class="form-check-input"
-                      id="exampleCheck1"
+                      id="checkbox-consent"
+                      {{ if .Site.Params.contacts.form.required.inquiry }}
+                      required="required"
+                      {{ end }}
                     />
-                    <label class="form-check-label" for="exampleCheck1"
-                      >{{.Site.Params.contacts.form.checkbox}}</label
-                    >
+                    <label class="form-check-label" for="checkbox-consent">
+                      {{.Site.Params.contacts.form.labels.checkbox}}
+                    </label>
                   </div>
 
                   <div class="col-md-12">
                     <input
                       type="submit"
                       class="btn btn-primary btn-send pt-2 btn-block"
-                      value="{{.Site.Params.contacts.form.submitBtn}}"
+                      value="{{.Site.Params.contacts.form.labels.submitBtn}}"
                     />
                   </div>
                 </div>
