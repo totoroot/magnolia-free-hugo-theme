@@ -116,11 +116,11 @@
   <!-- Section: Links  -->
 
   <!-- Copyright -->
+  {{ if .Site.Copyright }}
   <div class="copyright py-2 text-center">
     <p class="my-1 fs-6 text-muted">{{ .Site.Copyright | markdownify}}</p>
   </div>
-
-  <!-- Copyright -->
+  {{ end }}
 
   <!-- JavaScript and dependencies -->
 
