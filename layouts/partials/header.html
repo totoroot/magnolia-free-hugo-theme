@@ -32,34 +32,28 @@
           </li>
           {{ end }}
           <li class="vr ms-1 d-none d-lg-block"></li>
-          {{ if hugo.IsMultilingual}}
-          {{if .IsTranslated}}
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link nav-trad dropdown-toggle d-flex align-items-center justify-content-center"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="bi bi-globe me-1"></i>
-              {{.Site.Language.LanguageName}}
-              <!-- <i class="bi bi-caret-down-fill ms-1"></i> -->
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              
-              
-              {{ range .Translations }}
-              
-              <a class="dropdown-item nav-item nav-link nav-trad text-center" href="{{.Permalink}}">
-                {{.Site.Language.LanguageName}}
-              </a>
-              {{end}}
-              {{end}}
-            </div>
+          <li class="nav-item ms-2">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+              <i class="bi bi-moon-stars"></i>
+            </button>
+          </li>
+          {{ if hugo.IsMultilingual }}
+          <li class="nav-item ms-2 d-flex align-items-center gap-2">
+            {{ $current := . }}
+            {{ $translations := .AllTranslations }}
+            {{ range where .Site.Sites "Language.Lang" "in" (slice "de" "en") }}
+              {{ $lang := .Language.Lang }}
+              {{ $target := .Home.Permalink }}
+              {{ if eq $current.Language.Lang $lang }}
+                {{ $target = $current.Permalink }}
+              {{ else }}
+                {{ $match := where $translations "Language.Lang" $lang }}
+                {{ if gt (len $match) 0 }}
+                  {{ $target = (index $match 0).Permalink }}
+                {{ end }}
+              {{ end }}
+              <a class="language-switch{{ if eq $current.Language.Lang $lang }} active{{ end }}" href="{{ $target }}">{{ upper $lang }}</a>
+            {{ end }}
           </li>
           {{ end }}
         </ul>

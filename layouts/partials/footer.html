@@ -127,5 +127,37 @@
   {{ $bootstrap := resources.Get "js/bootstrap.bundle.min.js" }} {{ $js := slice
   $bootstrap | resources.Concat "js/bundle.js" | resources.Minify }}
 
+  <script>
+    (function () {
+      var storageKey = 'theme-preference';
+      var root = document.documentElement;
+      var button = document.getElementById('theme-toggle');
+
+      function setTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem(storageKey, theme);
+        if (!button) return;
+        var icon = button.querySelector('i');
+        if (!icon) return;
+        if (theme === 'dark') {
+          icon.className = 'bi bi-sun';
+          button.setAttribute('aria-label', 'Switch to light mode');
+        } else {
+          icon.className = 'bi bi-moon-stars';
+          button.setAttribute('aria-label', 'Switch to dark mode');
+        }
+      }
+
+      if (button) {
+        var initial = root.getAttribute('data-theme') || 'light';
+        setTheme(initial);
+        button.addEventListener('click', function () {
+          var current = root.getAttribute('data-theme') || 'light';
+          setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+      }
+    })();
+  </script>
+
   <script src="{{$js.RelPermalink}}" defer></script>
 </footer>

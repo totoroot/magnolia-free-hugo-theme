@@ -1,4 +1,12 @@
 <head>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme-preference');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   {{ if .IsHome }}
     <title>
       {{ .Page.Title }}
@@ -112,6 +120,98 @@
   {{ $options := (dict "targetPath" "css/styles.css" "outputStyle" "compressed") }}
   {{ $style := resources.Get "/scss/main.scss" | toCSS $options | minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
+
+  <style>
+    :root {
+      --theme-bg: #f7f9fb;
+      --theme-text: #1f2937;
+      --theme-surface: #ffffff;
+      --theme-muted: #6b7280;
+      --theme-border: rgba(31, 41, 55, 0.15);
+      --theme-link: #0b63ce;
+      --theme-link-hover: #084ea3;
+    }
+
+    [data-theme='dark'] {
+      --theme-bg: #0f172a;
+      --theme-text: #e2e8f0;
+      --theme-surface: #111827;
+      --theme-muted: #94a3b8;
+      --theme-border: rgba(148, 163, 184, 0.25);
+      --theme-link: #93c5fd;
+      --theme-link-hover: #bfdbfe;
+    }
+
+    body {
+      background-color: var(--theme-bg);
+      color: var(--theme-text);
+    }
+
+    .navbar,
+    .dropdown-menu,
+    .card,
+    .post-card,
+    .bg-white,
+    .bg-light,
+    .copyright,
+    .footer section:not(.first-section) {
+      background-color: var(--theme-surface) !important;
+      color: var(--theme-text);
+    }
+
+    .navbar .nav-link,
+    .navbar-brand,
+    .text-muted,
+    .footer .text-muted,
+    .dropdown-item {
+      color: var(--theme-muted) !important;
+    }
+
+    .navbar .nav-link:hover,
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      color: var(--theme-text) !important;
+      background-color: transparent;
+    }
+
+    a {
+      color: var(--theme-link);
+    }
+
+    a:hover {
+      color: var(--theme-link-hover);
+    }
+
+    .vr,
+    hr,
+    .border,
+    .border-top,
+    .border-bottom {
+      border-color: var(--theme-border) !important;
+    }
+
+    .theme-toggle,
+    .language-switch {
+      border: 1px solid var(--theme-border);
+      color: var(--theme-muted);
+      background: transparent;
+      border-radius: 999px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.9rem;
+    }
+
+    .theme-toggle:hover,
+    .language-switch:hover {
+      color: var(--theme-text);
+      border-color: var(--theme-muted);
+    }
+
+    .language-switch.active {
+      color: var(--theme-text);
+      border-color: var(--theme-text);
+      font-weight: 600;
+    }
+  </style>
 
   {{/* Favicon */}}
   {{ with resources.GetMatch "img/favicon.*" }}
